@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Tic-Tac-Toe</h1>
+            <p>You are X. AI is O.</p>
+        </header>
+
+        <div class="controls">
+            <label for="algo">AI Algorithm: </label>
+            <select id="algo">
+                <option value="minimax">Minimax</option>
+                <option value="alphabeta">Alpha-Beta Pruning</option>
+            </select>
+            <button id="reset-btn">Restart Game</button>
+        </div>
+
+        <div class="game-board" id="board">
+            <div class="cell" data-row="0" data-col="0"></div>
+            <div class="cell" data-row="0" data-col="1"></div>
+            <div class="cell" data-row="0" data-col="2"></div>
+            <div class="cell" data-row="1" data-col="0"></div>
+            <div class="cell" data-row="1" data-col="1"></div>
+            <div class="cell" data-row="1" data-col="2"></div>
+            <div class="cell" data-row="2" data-col="0"></div>
+            <div class="cell" data-row="2" data-col="1"></div>
+            <div class="cell" data-row="2" data-col="2"></div>
+        </div>
+
+        <div class="status-panel">
+            <h2 id="status-text">Your turn!</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="label">Nodes Explored</span>
+                    <span class="value" id="nodes-val">-</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">Execution Time</span>
+                    <span class="value" id="time-val">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
