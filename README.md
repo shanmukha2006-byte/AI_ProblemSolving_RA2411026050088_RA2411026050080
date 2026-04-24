@@ -1,5 +1,9 @@
 # Artificial Intelligence - Problem Solving Assignment
 
+### Team Members
+*   **Member 1:** [Your Name] (Register Number: RA2411026050088)
+*   **Member 2:** [Friend's Name] (Register Number: RA2411026050080)
+
 This repository contains the implementations for two Artificial Intelligence problems selected from the assignment list. The solutions are built using **Python** (with the Flask framework for the backend) and feature interactive **HTML/CSS/JS** GUIs.
 
 ## Problems Selected
