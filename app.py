@@ -1,20 +1,18 @@
 from flask import Flask, render_template, request, jsonify
+from collections import deque
 import time
 
 app = Flask(__name__)
 
-# Minimax algorithm
+# --- Tic-Tac-Toe AI Logic ---
 def minimax(board, depth, is_maximizing):
     global nodes_explored
     nodes_explored += 1
 
     score = evaluate(board)
-    if score == 10:
-        return score - depth
-    if score == -10:
-        return score + depth
-    if not is_moves_left(board):
-        return 0
+    if score == 10: return score - depth
+    if score == -10: return score + depth
+    if not is_moves_left(board): return 0
 
     if is_maximizing:
         best = -1000
@@ -35,18 +33,14 @@ def minimax(board, depth, is_maximizing):
                     board[i][j] = ''
         return best
 
-# Alpha-Beta Pruning algorithm
 def alpha_beta(board, depth, is_maximizing, alpha, beta):
     global nodes_explored
     nodes_explored += 1
 
     score = evaluate(board)
-    if score == 10:
-        return score - depth
-    if score == -10:
-        return score + depth
-    if not is_moves_left(board):
-        return 0
+    if score == 10: return score - depth
+    if score == -10: return score + depth
+    if not is_moves_left(board): return 0
 
     if is_maximizing:
         best = -1000
@@ -57,8 +51,7 @@ def alpha_beta(board, depth, is_maximizing, alpha, beta):
                     best = max(best, alpha_beta(board, depth + 1, not is_maximizing, alpha, beta))
                     board[i][j] = ''
                     alpha = max(alpha, best)
-                    if beta <= alpha:
-                        break
+                    if beta <= alpha: break
         return best
     else:
         best = 1000
@@ -69,8 +62,7 @@ def alpha_beta(board, depth, is_maximizing, alpha, beta):
                     best = min(best, alpha_beta(board, depth + 1, not is_maximizing, alpha, beta))
                     board[i][j] = ''
                     beta = min(beta, best)
-                    if beta <= alpha:
-                        break
+                    if beta <= alpha: break
         return best
 
 def find_best_move(board, algo="minimax"):
@@ -97,7 +89,6 @@ def find_best_move(board, algo="minimax"):
 
     end_time = time.perf_counter()
     execution_time = (end_time - start_time) * 1000 # ms
-
     return best_move, nodes_explored, execution_time
 
 def evaluate(board):
@@ -120,8 +111,7 @@ def evaluate(board):
 def is_moves_left(board):
     for i in range(3):
         for j in range(3):
-            if board[i][j] == '':
-                return True
+            if board[i][j] == '': return True
     return False
 
 def check_winner(board):
@@ -131,26 +121,75 @@ def check_winner(board):
     if not is_moves_left(board): return 'Tie'
     return None
 
+# --- Navigation AI Logic ---
+def bfs(graph, start, goal):
+    if start not in graph or goal not in graph:
+        return {"path": [], "explored": [], "length": 0}
+        
+    explored = []
+    queue = deque([[start]])
+    if start == goal: return {"path": [start], "explored": [start], "length": 1}
+        
+    while queue:
+        path = queue.popleft()
+        node = path[-1]
+        if node not in explored:
+            neighbors = graph.get(node, [])
+            for neighbor in neighbors:
+                new_path = list(path)
+                new_path.append(neighbor)
+                queue.append(new_path)
+                if neighbor == goal:
+                    explored.append(node)
+                    return {"path": new_path, "explored": explored, "length": len(new_path)}
+            explored.append(node)
+    return {"path": [], "explored": explored, "length": 0}
+
+def dfs(graph, start, goal):
+    if start not in graph or goal not in graph:
+        return {"path": [], "explored": [], "length": 0}
+        
+    explored = []
+    stack = [[start]]
+    if start == goal: return {"path": [start], "explored": [start], "length": 1}
+        
+    while stack:
+        path = stack.pop()
+        node = path[-1]
+        if node not in explored:
+            explored.append(node)
+            if node == goal:
+                return {"path": path, "explored": explored, "length": len(path)}
+            neighbors = graph.get(node, [])
+            for neighbor in reversed(neighbors):
+                new_path = list(path)
+                new_path.append(neighbor)
+                stack.append(new_path)
+    return {"path": [], "explored": explored, "length": 0}
+
+# --- Routes ---
 @app.route('/')
-def index():
+def home():
     return render_template('index.html')
+
+@app.route('/tictactoe')
+def tictactoe_page():
+    return render_template('tictactoe.html')
+
+@app.route('/navigation')
+def navigation_page():
+    return render_template('navigation.html')
 
 @app.route('/make_move', methods=['POST'])
 def make_move():
     data = request.json
     board = data.get('board')
-    algo = data.get('algo') # "minimax" or "alphabeta"
-
+    algo = data.get('algo')
     winner = check_winner(board)
-    if winner:
-        return jsonify({"status": "game_over", "winner": winner})
+    if winner: return jsonify({"status": "game_over", "winner": winner})
 
-    # AI move
     move, nodes, time_taken = find_best_move(board, algo)
-    
-    if move != (-1, -1):
-        board[move[0]][move[1]] = 'O'
-    
+    if move != (-1, -1): board[move[0]][move[1]] = 'O'
     winner = check_winner(board)
     
     return jsonify({
@@ -160,6 +199,17 @@ def make_move():
         "nodes_explored": nodes,
         "execution_time_ms": time_taken,
         "ai_move": move
+    })
+
+@app.route('/find_path', methods=['POST'])
+def find_path():
+    data = request.json
+    graph = data.get('graph', {})
+    start = data.get('start')
+    goal = data.get('goal')
+    return jsonify({
+        "bfs": bfs(graph, start, goal),
+        "dfs": dfs(graph, start, goal)
     })
 
 if __name__ == '__main__':

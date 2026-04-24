@@ -30,7 +30,7 @@ A dynamic graph-based navigation system where a user can construct a map (adding
 
 ## Execution Steps
 
-Follow these instructions to run the projects locally:
+Follow these instructions to run the project locally or deploy it to a server.
 
 1.  **Prerequisites:** Ensure you have Python 3.x installed.
 2.  **Clone the repository:**
@@ -43,27 +43,20 @@ Follow these instructions to run the projects locally:
     pip install -r requirements.txt
     ```
 
-### Running Problem 1 (Tic-Tac-Toe)
-1.  Navigate to the `problem1_tictactoe` directory:
-    ```bash
-    cd problem1_tictactoe
-    ```
-2.  Start the Flask server:
+### Running the Unified App
+1.  Start the Flask server from the root directory:
     ```bash
     python app.py
     ```
-3.  Open your web browser and go to `http://127.0.0.1:5000`.
+2.  Open your web browser and go to `http://127.0.0.1:5000`.
+3.  Use the main menu to navigate between the **Tic-Tac-Toe** and **Smart Navigation** interfaces.
 
-### Running Problem 8 (Smart Navigation)
-1.  Navigate to the `problem8_navigation` directory:
-    ```bash
-    cd problem8_navigation
-    ```
-2.  Start the Flask server:
-    ```bash
-    python app.py
-    ```
-3.  Open your web browser and go to `http://127.0.0.1:5001`.
+### Deployment Instructions (Render.com / Heroku)
+This application is fully configured for deployment on platforms like Render or Heroku:
+1. Connect this GitHub repository to your Render/Heroku account.
+2. Select **Web Service** and choose Python as the environment.
+3. Build Command: `pip install -r requirements.txt`
+4. Start Command: `gunicorn app:app` (or it will automatically detect the `Procfile`).
 
 ## Sample Outputs
 

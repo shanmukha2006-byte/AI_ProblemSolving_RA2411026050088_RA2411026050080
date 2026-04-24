@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Navigation System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navigation.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
+        <a href="/" style="color: var(--primary); text-decoration: none; margin-bottom: 1rem; display: inline-block;">← Back to Home</a>
         <header>
             <h1>Smart Navigation System</h1>
             <p>Graph Search using BFS and DFS</p>
@@ -65,6 +66,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='navigation.js') }}"></script>
 </body>
 </html>
