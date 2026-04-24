@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Navigation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Navigation System</h1>
+            <p>Graph Search using BFS and DFS</p>
+        </header>
+
+        <div class="main-content">
+            <div class="graph-editor">
+                <h2>Graph Configuration</h2>
+                
+                <div class="input-group">
+                    <label>Add Edge (Node A to Node B):</label>
+                    <div class="edge-inputs">
+                        <input type="text" id="node-a" placeholder="e.g. A" maxlength="20">
+                        <input type="text" id="node-b" placeholder="e.g. B" maxlength="20">
+                        <button id="add-edge-btn">Add Edge</button>
+                    </div>
+                </div>
+
+                <div class="graph-preview">
+                    <h3>Current Connections:</h3>
+                    <ul id="edge-list"></ul>
+                </div>
+                
+                <div class="input-group">
+                    <label>Start Node:</label>
+                    <input type="text" id="start-node" placeholder="Start Node">
+                </div>
+                
+                <div class="input-group">
+                    <label>Goal Node:</label>
+                    <input type="text" id="goal-node" placeholder="Goal Node">
+                </div>
+
+                <button id="find-path-btn" class="primary-btn">Find Path</button>
+                <button id="clear-btn" class="secondary-btn">Clear Graph</button>
+            </div>
+
+            <div class="results">
+                <h2>Results Comparison</h2>
+                
+                <div class="algo-result" id="bfs-result">
+                    <h3>Breadth-First Search (BFS)</h3>
+                    <div class="result-detail"><strong>Path:</strong> <span class="path">-</span></div>
+                    <div class="result-detail"><strong>Explored Nodes:</strong> <span class="explored">-</span></div>
+                    <div class="result-detail"><strong>Path Length:</strong> <span class="length">-</span></div>
+                </div>
+
+                <div class="algo-result" id="dfs-result">
+                    <h3>Depth-First Search (DFS)</h3>
+                    <div class="result-detail"><strong>Path:</strong> <span class="path">-</span></div>
+                    <div class="result-detail"><strong>Explored Nodes:</strong> <span class="explored">-</span></div>
+                    <div class="result-detail"><strong>Path Length:</strong> <span class="length">-</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #0f172a;
+    --card-bg: #ffffff;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #e2e8f0;
+    --secondary-hover: #cbd5e1;
+    --border-color: #e2e8f0;
+    --success: #10b981;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary);
+}
+
+p {
+    margin: 0;
+    color: #64748b;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.graph-editor, .results {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.edge-inputs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.edge-inputs input {
+    width: 40%;
+}
+
+button {
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s;
+}
+
+#add-edge-btn {
+    width: 20%;
+    background-color: var(--secondary);
+    color: var(--text-color);
+}
+
+#add-edge-btn:hover {
+    background-color: var(--secondary-hover);
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: white;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.secondary-btn:hover {
+    background-color: #fee2e2;
+}
+
+.graph-preview {
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.graph-preview h3 {
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+}
+
+#edge-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.algo-result {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-color);
+}
+
+.algo-result h3 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.result-detail {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.result-detail span {
+    color: var(--success);
+    font-weight: 600;
+}
